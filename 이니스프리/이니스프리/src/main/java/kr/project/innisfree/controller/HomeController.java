@@ -1,17 +1,23 @@
 package kr.project.innisfree.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.project.innisfree.service.MemberService;
+
 @Controller
 public class HomeController {
+	
+	@Autowired
+	MemberService memberService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(ModelAndView mv) {
 		mv.addObject("title", "Innisfree");
-		mv.setViewName("/main/home");		
+		mv.setViewName("/main/home");
 		return mv;
 	}
 	
