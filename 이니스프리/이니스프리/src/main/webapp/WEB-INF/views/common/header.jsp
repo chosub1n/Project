@@ -9,6 +9,12 @@
 	background-image: url(<%=request.getContextPath()%>/resources/img/logo_basic.png);
 	width: 181px; height: 34px; display: block; background-size: 100% 100%
 }
+.member .dropdown-toggle::after{
+	display: none;
+}
+.fa-regular{
+	line-height: 1.5;
+}
 </style>
 </head>    
 <body>    
@@ -25,12 +31,15 @@
 			</li>	      	
 	      	<li class="nav-item">				
 				<c:if test="${user == null}">
-					<a class="nav-link" href="<c:url value="/signup"></c:url>">회원가입</a>
 					<a class="nav-link" href="<c:url value="/login"></c:url>">로그인</a>
+					<a class="nav-link" href="<c:url value="/signup"></c:url>">회원가입</a>
 				</c:if>        	
 	      	</li>
 	      	<li class="nav-item">
-				<a class="nav-link" href="<c:url value="/logout"></c:url>">로그아웃</a>        	
+				<c:if test="${user != null}">
+					<a class="nav-link" href="<c:url value="/logout"></c:url>">로그아웃</a>
+					<a class="nav-link" href="<c:url value="/signup"></c:url>">회원가입</a>
+				</c:if>           	
 	      	</li>
 	      	<li class="nav-item">
 				<a class="nav-link" href="<c:url value="/mypage"></c:url>">마이페이지</a>
