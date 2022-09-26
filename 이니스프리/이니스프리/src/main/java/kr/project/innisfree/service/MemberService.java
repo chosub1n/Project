@@ -1,5 +1,8 @@
 package kr.project.innisfree.service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import kr.project.innisfree.vo.MemberVO;
 
 public interface MemberService {
@@ -17,5 +20,7 @@ public interface MemberService {
 	void updateMemberSession(MemberVO user);
 
 	MemberVO loginBySession(String me_s_email);
+
+	void logout(HttpServletRequest request, HttpServletResponse response);
 
 }
