@@ -26,7 +26,6 @@
 		</div>
 		<button class="btn btn-outline-success col-12">로그인</button>
 	</form>
-	<a href="<c:url value="/find?type=id"></c:url>">아이디 찾기</a>/
 	<a href="<c:url value="/find?type=pw"></c:url>">비밀번호 찾기</a>
 </div>
 </body>

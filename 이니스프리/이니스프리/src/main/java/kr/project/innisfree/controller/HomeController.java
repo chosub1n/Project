@@ -47,7 +47,7 @@ public class HomeController {
 	}
 	@RequestMapping(value = "/signup/success", method = RequestMethod.GET)
 	public ModelAndView signupSuccessGet(ModelAndView mv) {
-		mv.addObject("title","회원가입완료");
+		mv.addObject("title","회원가입 완료");
 		mv.setViewName("/main/signupSuccess");
 		return mv;
 	}
@@ -63,7 +63,7 @@ public class HomeController {
 	public ModelAndView signupCheckGet(ModelAndView mv, MemberVO member) {
 		boolean res = memberService.emailActive(member);
 		mv.addObject("res", res);
-		mv.addObject("title","회원가입완료");
+		mv.addObject("title","회원가입 완료");
 		mv.setViewName("/main/signupCheck");
 		return mv;
 	}
@@ -86,5 +86,20 @@ public class HomeController {
 		mv.setViewName("redirect:/");
 		return mv;
 	}
-
+	
+	@RequestMapping(value="/find", method=RequestMethod.GET)
+	public ModelAndView findGet(ModelAndView mv, String type){
+		mv.addObject("type", type);
+		mv.setViewName("/main/find");
+		return mv;
+	}
+	@RequestMapping(value="/ajax/find/pw")
+	@ResponseBody
+	public Map<Object,Object> findPw(@RequestBody MemberVO member){
+		HashMap<Object, Object> map = new HashMap<Object, Object>();
+		boolean res = memberService.findPw(member);
+		map.put("res", res);
+		return map;
+	}
+	
 }

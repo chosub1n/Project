@@ -1,5 +1,6 @@
 package kr.project.innisfree.vo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,4 +26,9 @@ public class MemberVO {
 	private int me_authority;
 	private int me_gr_num;
 	private boolean autoLogin;
+	
+	public String getMe_birth_str() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		return format.format(me_birth);
+	}
 }

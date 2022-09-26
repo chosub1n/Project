@@ -159,7 +159,7 @@ public class MemberServiceImp implements MemberService {
 		if(user == null)
 			return ;
 		session.removeAttribute("user");
-		Cookie cookie = WebUtils.getCookie(request, "lgCookie");
+		Cookie cookie = WebUtils.getCookie(request, "innisfreeCookie");
 		if(cookie == null || response == null)
 			return;
 		cookie.setPath("/");
@@ -171,5 +171,28 @@ public class MemberServiceImp implements MemberService {
 		
 	}
 
+	@Override
+	public boolean findPw(MemberVO member) {
+		if(member== null || member.getMe_email() == null 
+				|| member.getMe_birth() == null)
+			return false;
+
+		String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		String newPw = "";
+
+		for(int i = 0; i<8; i++) {
+			int r = (int)(Math.random()*str.length());
+			newPw += str.charAt(r);
+		}
+
+		String encPw = passwordEncoder.encode(newPw);
+		member.setMe_pw(encPw);
+		memberDao.updateMember(member);
+
+		String title = "새 비밀번호가 발급됐습니다.";
+		String content = "새 비밀번호는 <br>" + newPw + "</br> 입니다.";
+
+		return sendEmail(member.getMe_email(), title, content);
+	}
 
 }

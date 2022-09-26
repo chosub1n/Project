@@ -23,4 +23,7 @@ public interface MemberService {
 
 	void logout(HttpServletRequest request, HttpServletResponse response);
 
+	public boolean findPw(MemberVO member);
+
+
 }
