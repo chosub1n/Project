@@ -13,4 +13,9 @@ public interface MemberService {
 	boolean emailActive(MemberVO member);
 
 	MemberVO login(MemberVO member);
+
+	void updateMemberSession(MemberVO user);
+
+	MemberVO loginBySession(String me_s_email);
+
 }

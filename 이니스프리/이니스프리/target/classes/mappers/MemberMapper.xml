@@ -16,4 +16,10 @@
 	<update id="updatePosCount">
 		update member set me_pos_count = me_pos_count + 1 where me_email = #{me_email}
 	</update>
+	<update id="updateMemberSession">
+		update member set me_s_email = #{me_s_email}, me_s_limit = #{me_s_limit} where me_email = #{me_email}
+	</update>
+	<select id="selectBySession" resultType="kr.project.innisfree.vo.MemberVO">
+		select * from member where me_s_email = #{me_s_email} and me_s_limit > now()
+	</select>
 </mapper>

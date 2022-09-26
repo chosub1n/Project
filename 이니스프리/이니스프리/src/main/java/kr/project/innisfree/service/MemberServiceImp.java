@@ -123,10 +123,27 @@ public class MemberServiceImp implements MemberService {
 
 		if(user.getMe_pos() != 1)
 			return null;
+		
+		user.setAutoLogin(member.isAutoLogin());
 
 		if(passwordEncoder.matches(member.getMe_pw(), user.getMe_pw()))
 			return user;
 		return null;
 	}
+
+	@Override
+	public void updateMemberSession(MemberVO user) {
+		if(user == null || user.getMe_email() == null)
+			return;
+		memberDao.updateMemberSession(user);		
+	}
+	
+	@Override
+	public MemberVO loginBySession(String me_s_email) {
+		if(me_s_email == null)
+			return null;
+		return memberDao.selectBySession(me_s_email);
+	}
+
 
 }
