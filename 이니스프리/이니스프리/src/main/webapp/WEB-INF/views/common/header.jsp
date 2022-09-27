@@ -7,10 +7,25 @@
 <style>
 .home{
 	background-image: url(<%=request.getContextPath()%>/resources/img/logo_basic.png);
-	width: 181px; height: 34px; display: block; background-size: 100% 100%
+	width: 181px; height: 34px; display: block; background-size: 100% 100%; margin-top: 55px;
+}
+.headersearch{
+	position: relative; height: 40px; padding-right: 60px; width: 400px;
+	border: 2px solid #d9d9d9; border-radius: 21px; overflow: hidden; margin-top: 55px;
+}
+.fa-solid{
+	font-size: 23px; margin-left: 350px; margin-top: 7px;
+}
+.list{
+	margin-left: 100px; 
 }
 .member .dropdown-toggle::after{
 	display: none;
+}
+.cart em{
+    display: inline-block; margin-left: 5px; width: 18px; height: 18px;
+    line-height: 19px; border-radius: 50%; background: #167a68;
+    color: #fff; font-size: 14px; text-align: center;
 }
 </style>
 </head>    
@@ -18,10 +33,14 @@
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
   <div class="container" style="position: relative;">
   	<a class="navbar-brand home" href="<c:url value="/"></c:url>"></a>
+  	  <div class="headersearch">
+  	  	<input type="hidden" name="schText" id="schText" value="">
+  	  	<i class="fa-solid fa-magnifying-glass"></i>
+  	  </div>
 	  	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 	    	<span class="navbar-toggler-icon"></span>
 	  	</button>
-  	<div class="collapse navbar-collapse" id="collapsibleNavbar">
+  	<div class="collapse navbar-collapse list" id="collapsibleNavbar">
     	<ul class="navbar-nav">
     		<li class="nav-item">
 				<a class="nav-link" href="<c:url value="/notice"></c:url>">고객센터</a>
@@ -38,10 +57,10 @@
 	      	</li>
 	      	<li class="nav-item">
 				<c:if test="${user != null}">
-					<a class="nav-link logout" href="<c:url value="/logout"></c:url>">로그아웃</a>
+					<a class="nav-link" href="<c:url value="/logout"></c:url>" onclick="return confirm('로그아웃 하시겠습니까?');">로그아웃</a>
 				</c:if>           	
 	      	</li>
-	      	<li class="nav-item dropdown">
+	      	<li class="nav-item dropdown member">
 	      	  <c:if test="${user != null }">
 			  	<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">마이페이지</a>
 			  </c:if>
@@ -57,7 +76,7 @@
 			  </div>
 			</li> 
 	      	<li class="nav-item">
-				<a class="nav-link" href="<c:url value="/cart"></c:url>">장바구니</a>
+				<a class="nav-link" href="<c:url value="/cart"></c:url>">장바구니<em id="btn-cart cart">0</em></a>
 	      	</li>    
     	</ul>
 	</div>
