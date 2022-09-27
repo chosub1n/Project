@@ -23,7 +23,10 @@ public interface MemberService {
 
 	void logout(HttpServletRequest request, HttpServletResponse response);
 
+	boolean updateMember(MemberVO member, MemberVO user);
+	
 	public boolean findPw(MemberVO member);
+
 
 
 }

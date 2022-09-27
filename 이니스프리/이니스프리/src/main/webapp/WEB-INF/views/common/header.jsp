@@ -12,9 +12,6 @@
 .member .dropdown-toggle::after{
 	display: none;
 }
-.fa-regular{
-	line-height: 1.5;
-}
 </style>
 </head>    
 <body>    
@@ -32,21 +29,36 @@
 	      	<li class="nav-item">				
 				<c:if test="${user == null}">
 					<a class="nav-link" href="<c:url value="/login"></c:url>">로그인</a>
+				</c:if>       	
+	      	</li>
+	      	<li class="nav-item">				
+				<c:if test="${user == null}">
 					<a class="nav-link" href="<c:url value="/signup"></c:url>">회원가입</a>
-				</c:if>        	
+				</c:if>       	
 	      	</li>
 	      	<li class="nav-item">
 				<c:if test="${user != null}">
-					<a class="nav-link" href="<c:url value="/logout"></c:url>">로그아웃</a>
-					<a class="nav-link" href="<c:url value="/signup"></c:url>">회원가입</a>
+					<a class="nav-link logout" href="<c:url value="/logout"></c:url>">로그아웃</a>
 				</c:if>           	
 	      	</li>
-	      	<li class="nav-item">
-				<a class="nav-link" href="<c:url value="/mypage"></c:url>">마이페이지</a>
-	      	</li>
+	      	<li class="nav-item dropdown">
+	      	  <c:if test="${user != null }">
+			  	<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">마이페이지</a>
+			  </c:if>
+			  <div class="dropdown-menu">			      
+			  	<a class="dropdown-item" href="<c:url value="/member/update"></c:url>">회원정보 수정</a>				    
+			  	<a class="dropdown-item" href="<c:url value="#"></c:url>">보유쿠폰</a>				    
+			  	<a class="dropdown-item" href="<c:url value="#"></c:url>">포인트</a>				    
+			  	<a class="dropdown-item" href="<c:url value="#"></c:url>">주문배송조회</a>				    
+			  	<a class="dropdown-item" href="<c:url value="#"></c:url>">내 리뷰</a>				    
+			  	<a class="dropdown-item" href="<c:url value="#"></c:url>">제품 문의 내역</a>				    
+			  	<a class="dropdown-item" href="<c:url value="#"></c:url>">찜한 제품</a>				    
+			  	<a class="dropdown-item" href="<c:url value="#"></c:url>">멤버십</a>				    
+			  </div>
+			</li> 
 	      	<li class="nav-item">
 				<a class="nav-link" href="<c:url value="/cart"></c:url>">장바구니</a>
-	      	</li>     
+	      	</li>    
     	</ul>
 	</div>
   </div>

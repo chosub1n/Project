@@ -170,6 +170,25 @@ public class MemberServiceImp implements MemberService {
 		memberDao.updateMemberSession(user);
 		
 	}
+	
+	@Override
+	public boolean updateMember(MemberVO member, MemberVO user) {
+		if(member == null || user == null)
+			return false;
+		user.setMe_birth(member.getMe_birth());
+		user.setMe_email(member.getMe_email());
+
+		if(member.getMe_pw()!=null && member.getMe_pw().length() != 0) {
+			String encPw = passwordEncoder.encode(member.getMe_pw());
+			user.setMe_pw(encPw);
+		}
+
+		if(member.getMe_authority() != 0)
+			user.setMe_authority(member.getMe_authority());
+
+		memberDao.updateMember(user);
+		return true;
+	}
 
 	@Override
 	public boolean findPw(MemberVO member) {
@@ -194,5 +213,6 @@ public class MemberServiceImp implements MemberService {
 
 		return sendEmail(member.getMe_email(), title, content);
 	}
+
 
 }
