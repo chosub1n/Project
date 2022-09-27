@@ -104,8 +104,8 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/find", method=RequestMethod.GET)
-	public ModelAndView findGet(ModelAndView mv, String type){
-		mv.addObject("type", type);
+	public ModelAndView findGet(ModelAndView mv){
+		mv.addObject("title","비밀번호 찾기");
 		mv.setViewName("/main/find");
 		return mv;
 	}

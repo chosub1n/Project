@@ -192,10 +192,16 @@ public class MemberServiceImp implements MemberService {
 
 	@Override
 	public boolean findPw(MemberVO member) {
-		if(member== null || member.getMe_email() == null 
-				|| member.getMe_birth() == null)
+		if(member == null || member.getMe_email() == null || member.getMe_birth() == null)
+			return false;
+		
+		String email = memberDao.selectEmail(member);
+
+		if(email == null)
 			return false;
 
+		MemberVO user = memberDao.selectMember(email);
+		
 		String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 		String newPw = "";
 
@@ -205,13 +211,31 @@ public class MemberServiceImp implements MemberService {
 		}
 
 		String encPw = passwordEncoder.encode(newPw);
-		member.setMe_pw(encPw);
-		memberDao.updateMember(member);
+		user.setMe_pw(encPw);
+		memberDao.updateMember(user);
 
 		String title = "새 비밀번호가 발급됐습니다.";
 		String content = "새 비밀번호는 <br>" + newPw + "</br> 입니다.";
 
-		return sendEmail(member.getMe_email(), title, content);
+		return sendEmail1(user.getMe_email(), title, content);
+	}
+	public boolean sendEmail1(String to, String title, String content) {
+		try {
+      MimeMessage message = mailSender.createMimeMessage();
+      MimeMessageHelper messageHelper 
+          = new MimeMessageHelper(message, true, "UTF-8");
+
+      messageHelper.setFrom("jsubin0110@gmail.com");  // 보내는사람 생략하거나 하면 정상작동을 안함
+      messageHelper.setTo(to);     // 받는사람 이메일
+      messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+      messageHelper.setText(content, true);  // 메일 내용
+
+      mailSender.send(message);
+	  } catch(Exception e){
+	  	e.printStackTrace();
+	    return false;
+	  }
+		return true;
 	}
 
 

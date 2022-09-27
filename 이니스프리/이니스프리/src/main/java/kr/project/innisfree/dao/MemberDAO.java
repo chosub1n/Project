@@ -18,7 +18,9 @@ public interface MemberDAO {
 
 	MemberVO selectBySession(String me_s_email);
 
-	public void updateMember(MemberVO user);
+	void updateMember(MemberVO user);
 
-	
+	String selectEmail(MemberVO member);
+
+
 }
