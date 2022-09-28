@@ -17,4 +17,10 @@
 		select count(*) from notice
 			where no_type = #{no_type} and no_title like concat('%',#{cri.search},'%')
 	</select>
+	<select id="selectNotice" resultType="kr.project.innisfree.vo.NoticeVO">
+		select * from notice where no_num = #{no_num}
+	</select>
+	<delete id="deleteNotice">
+		delete from notice where no_num = #{no_num}
+	</delete>
 </mapper>

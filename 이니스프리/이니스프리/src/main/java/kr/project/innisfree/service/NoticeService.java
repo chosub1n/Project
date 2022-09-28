@@ -14,5 +14,9 @@ public interface NoticeService {
 
 	int getTotalCount(Criteria cri, String no_type);
 
+	boolean deleteNotice(Integer no_num, MemberVO user);
+
+	String getDeleteRedirectURL(String no_type);
+
 
 }

@@ -15,4 +15,8 @@ public interface NoticeDAO {
 
 	int selectNoticeTotalCount(@Param("cri")Criteria cri, @Param("no_type")String no_type);
 
+	NoticeVO selectNotice(Integer no_num);
+
+	int deleteNotice(Integer no_num);
+
 }

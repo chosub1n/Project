@@ -46,5 +46,25 @@ public class NoticeServiceImp implements NoticeService{
 		return noticeDao.selectNoticeTotalCount(cri,no_type);
 	}
 
+	@Override
+	public boolean deleteNotice(Integer no_num, MemberVO user) {
+		if(no_num == null || user == null)
+			return false;
+		NoticeVO notice = noticeDao.selectNotice(no_num);
+		if(notice == null)
+			return false;
+		if(user.getMe_authority() != 10 && !notice.getNo_me_email().equals(user.getMe_email()))
+			return false;
+
+		return noticeDao.deleteNotice(no_num) == 1 ? true : false;
+	}
+
+	@Override
+	public String getDeleteRedirectURL(String no_type) {
+		if(no_type.equals("NOTICE"))
+			return "/innisfree/admin/notice/list";
+		return null;
+	}
+
 
 }
