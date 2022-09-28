@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.project.innisfree.service.MessageService;
 import kr.project.innisfree.service.NoticeService;
 import kr.project.innisfree.vo.MemberVO;
+import kr.project.innisfree.vo.NoticeVO;
 
 @Controller
 public class NoticeController {
@@ -32,6 +33,14 @@ public class NoticeController {
 			messageService.message(response, "게시글이 삭제되었습니다.", redirectUrl);
 		else
 			messageService.message(response, "게시글 삭제에 실패했습니다.", redirectUrl);
+		return mv;
+	}
+	
+	@RequestMapping(value = "/notice/select", method = RequestMethod.GET)
+	public ModelAndView noticeSelectGet(ModelAndView mv, Integer no_num) {
+		NoticeVO notice = noticeService.getNotice(no_num);
+		mv.addObject("no", notice);
+		mv.setViewName("/notice/select");
 		return mv;
 	}
 
