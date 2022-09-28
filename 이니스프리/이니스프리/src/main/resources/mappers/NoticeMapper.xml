@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.project.innisfree.dao.NoticeDAO">
+	<insert id="insertNotice">
+		insert into notice(no_num, no_type, no_title, no_content, no_me_email) 
+		 values(#{no_num}, #{no_type}, #{no_title},#{no_content},#{no_me_email})
+	</insert>
+	<select id="selectNoticeList" resultType="kr.project.innisfree.vo.NoticeVO">
+		select * from notice
+			where no_type = #{no_type} and no_title like concat('%',#{cri.search},'%')
+			order by no_num desc
+			limit #{cri.pageStart}, #{cri.perPageNum} 
+	</select>
+	<select id="selectNoticeTotalCount" resultType="int">
+		select count(*) from notice
+			where no_type = #{no_type} and no_title like concat('%',#{cri.search},'%')
+	</select>
+</mapper>

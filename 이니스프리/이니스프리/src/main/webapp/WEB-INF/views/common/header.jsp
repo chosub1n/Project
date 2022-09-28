@@ -43,7 +43,7 @@
   	<div class="collapse navbar-collapse list" id="collapsibleNavbar">
     	<ul class="navbar-nav">
     		<li class="nav-item">
-				<a class="nav-link" href="<c:url value="/notice"></c:url>">고객센터</a>
+				<a class="nav-link" href="<c:url value="/admin/notice/list"></c:url>">고객센터</a>
 			</li>	      	
 	      	<li class="nav-item">				
 				<c:if test="${user == null}">
