@@ -40,12 +40,14 @@ form.btn{
 	        </td>
 	        <td>${no.no_date_str}</td>
 	        <td>
+	        <c:if test="${user.me_authority == 10 }">
 	        	<a class="btn btn-outline-danger" href="<c:url value="/admin/notice/update?no_num=${no.no_num}"></c:url>">수정</a>
 	        	<form class="btn btn-outline-warning" action="<c:url value="/notice/delete"></c:url>"  method="post">
 	        		<button class="btn-del">삭제</button>
 	        		<input type="hidden" name="no_num" value="${no.no_num}">
 	        		<input type="hidden" name="no_type" value="${no.no_type}">
 	        	</form>
+	        </c:if>		
 	        </td>
 	      </tr>
       </c:forEach>
