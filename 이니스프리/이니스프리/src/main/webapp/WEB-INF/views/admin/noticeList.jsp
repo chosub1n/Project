@@ -38,7 +38,7 @@ form.btn{
 	        <td>
 	        	<a href="<c:url value="/notice/select?no_num=${no.no_num}"></c:url>">${no.no_title}</a>
 	        </td>
-	        <td>${no.no_date_str}</td>
+	        <td>${no.no_reg_date_str}</td>
 	        <td>
 	        <c:if test="${user.me_authority == 10 }">
 	        	<a class="btn btn-outline-danger" href="<c:url value="/admin/notice/update?no_num=${no.no_num}"></c:url>">수정</a>
