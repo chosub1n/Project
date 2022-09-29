@@ -42,9 +42,11 @@
 	  	</button>
   	<div class="collapse navbar-collapse list" id="collapsibleNavbar">
     	<ul class="navbar-nav">
-    		<li class="nav-item">
-				<a class="nav-link" href="<c:url value="/admin/notice/list"></c:url>">고객센터</a>
-			</li>	      	
+    	   <c:if test="${user.me_authority != 10 }">
+    		  <li class="nav-item">
+				 <a class="nav-link" href="<c:url value="/notice/list?no_type=NOTICE"></c:url>">고객센터</a>
+			  </li>
+			</c:if>	      	
 	      	<li class="nav-item">				
 				<c:if test="${user == null}">
 					<a class="nav-link" href="<c:url value="/login"></c:url>">로그인</a>
