@@ -19,4 +19,6 @@ public interface NoticeDAO {
 
 	int deleteNotice(Integer no_num);
 
+	int updateNotice(NoticeVO dbNotice);
+
 }

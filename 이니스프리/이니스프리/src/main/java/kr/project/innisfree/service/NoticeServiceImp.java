@@ -66,5 +66,28 @@ public class NoticeServiceImp implements NoticeService{
 		return null;
 	}
 
+	@Override
+	public NoticeVO getNotice(Integer no_num) {
+		if(no_num == null)
+			return null;
+		return noticeDao.selectNotice(no_num);
+	}
+
+	@Override
+	public boolean updateNotice(NoticeVO notice, MemberVO user) {
+		if(notice == null || notice.getNo_title() == null || notice.getNo_title().length() == 0 || 
+				notice.getNo_content() == null)
+			return false;
+		NoticeVO dbNotice = noticeDao.selectNotice(notice.getNo_num());
+		if(dbNotice == null) 
+			return false;
+
+		if(user.getMe_authority() != 10 && !notice.getNo_me_email().equals(user.getMe_email()))
+			return false;
+		dbNotice.setNo_title(notice.getNo_title());
+		dbNotice.setNo_content(notice.getNo_content());
+		return noticeDao.updateNotice(dbNotice) == 1 ? true : false;
+	}
+
 
 }

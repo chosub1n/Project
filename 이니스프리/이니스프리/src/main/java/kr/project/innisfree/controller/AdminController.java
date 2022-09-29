@@ -58,9 +58,28 @@ public class AdminController {
 		MemberVO user= (MemberVO)session.getAttribute("user");
 		boolean res = noticeService.insertNotice(notice, user, "NOTICE");
 		if(res)
-			messageService.message(response, "공지사항이 등록됐습니다.", "/innisfree/admin/notice/list");
+			messageService.message(response, "공지사항 등록이 완료되었습니다.", "/innisfree/admin/notice/list");
 		else
 			messageService.message(response, "공지사항 등록에 실패했습니다.", "/innisfree/admin/notice/insert");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/admin/notice/update", method = RequestMethod.GET)
+	public ModelAndView noticeUpdateGet(ModelAndView mv, Integer no_num) {
+		NoticeVO notice = noticeService.getNotice(no_num);
+		mv.addObject("no", notice);
+		mv.setViewName("/admin/noticeUpdate");
+		return mv;
+	}
+	@RequestMapping(value = "/admin/notice/update", method = RequestMethod.POST)
+	public ModelAndView noticeUpdatePost(ModelAndView mv, NoticeVO notice,
+			HttpServletResponse response, HttpSession session) {
+		MemberVO user= (MemberVO)session.getAttribute("user");
+		boolean res = noticeService.updateNotice(notice, user);
+		if(res)
+			messageService.message(response, "공지사항 수정이 완료되었습니다.", "/innisfree/admin/notice/list");
+		else
+			messageService.message(response, "공지사항 수정에 실패했습니다.", "/innisfree/admin/notice/list");
 		return mv;
 	}
 	

@@ -18,5 +18,9 @@ public interface NoticeService {
 
 	String getDeleteRedirectURL(String no_type);
 
+	NoticeVO getNotice(Integer no_num);
+
+	boolean updateNotice(NoticeVO notice, MemberVO user);
+
 
 }
