@@ -9,7 +9,17 @@
      </insert>
 	 <select id="selectCategoryList" resultType="kr.project.innisfree.vo.CategoryVO">
       	select * from large_category
-			join midium_cartegory on lc_code = mc_lc_code
-		    join small_cartegory on sc_mc_code = mc_code
+			join midium_category on lc_code = mc_lc_code
+		    join small_category on sc_mc_code = mc_code
      </select> 
+     <select id="selectLargeCategory" resultType="kr.project.innisfree.vo.CategoryVO">
+     	select *  from large_category
+     </select>
+     <select id="selectMidiumCategory" resultType="kr.project.innisfree.vo.CategoryVO">
+     	select *  from midium_category where mc_lc_code = #{code}
+     </select>
+     <select id="selectSmallCategory" resultType="kr.project.innisfree.vo.CategoryVO">
+     	select *  from small_category where sc_mc_code = #{code}
+     </select>
+
 </mapper>

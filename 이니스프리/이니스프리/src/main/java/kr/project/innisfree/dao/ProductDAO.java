@@ -9,5 +9,11 @@ public interface ProductDAO {
 	void insertCategory(CategoryVO category);
 
 	ArrayList<CategoryVO> selectCategoryList();
+
+	ArrayList<CategoryVO> selectLargeCategory();
+
+	ArrayList<CategoryVO> selectMidiumCategory(int code);
+
+	ArrayList<CategoryVO> selectSmallCategory(int code);
 	
 }
