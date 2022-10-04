@@ -6,5 +6,6 @@ public interface MessageService {
 
 	void message(HttpServletResponse response, String content, String redirectUrl);
 
+	void categoryMessage(HttpServletResponse response, int res);
 
 }

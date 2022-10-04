@@ -15,7 +15,7 @@
 	      <a class="nav-link" href="<c:url value="/admin/category"></c:url>">카테고리</a>
 	    </li>
 	    <li class="nav-item">
-	      <a class="nav-link" href="<c:url value="/admin/notice/list"></c:url>"">고객센터(공지사항)</a>
+	      <a class="nav-link" href="<c:url value="/admin/notice/list"></c:url>">고객센터(공지사항)</a>
 	    </li>
 	    <li class="nav-item">
 	      <a class="nav-link" href="#">Link 3</a>

@@ -26,5 +26,17 @@ public class MessageServiceImp implements MessageService{
 		out.flush();
 	}
 
+	@Override
+	public void categoryMessage(HttpServletResponse response, int res) {
+		String redirectUrl = "/innisfree/admin/category";
+		switch (res) {
+		case -1:	message(response,"카테고리명 또는 카테고리코드가 중복되었습니다.",redirectUrl);break;//중복
+		case -2:	message(response,"카테고리명 또는 카테고리코드가 선택되지 않았습니다.",redirectUrl);break;//null
+		default:
+			message(response,"카테고리가 등록되었습니다.",redirectUrl);
+		}
+		
+	}
+
 
 }

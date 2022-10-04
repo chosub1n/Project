@@ -1,5 +1,6 @@
 package kr.project.innisfree.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,8 @@ import kr.project.innisfree.pagination.Criteria;
 import kr.project.innisfree.pagination.PageMaker;
 import kr.project.innisfree.service.MessageService;
 import kr.project.innisfree.service.NoticeService;
+import kr.project.innisfree.service.ProductService;
+import kr.project.innisfree.vo.CategoryVO;
 import kr.project.innisfree.vo.MemberVO;
 import kr.project.innisfree.vo.NoticeVO;
 
@@ -27,6 +30,9 @@ public class AdminController {
 
 	@Autowired
 	NoticeService noticeService;
+	
+	@Autowired
+	ProductService productService;
 
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public ModelAndView home(ModelAndView mv) {
@@ -83,4 +89,21 @@ public class AdminController {
 		return mv;
 	}
 	
+	@RequestMapping(value = "/admin/category", method = RequestMethod.GET)
+	public ModelAndView category(ModelAndView mv) {
+		ArrayList<CategoryVO> list = productService.getCategoryList();
+		mv.addObject("list",list);
+		mv.setViewName("/admin/category");
+		return mv;
+	}
+	@RequestMapping(value = "/admin/category", method = RequestMethod.POST)
+	public ModelAndView categoryPost(ModelAndView mv, CategoryVO category,
+			HttpServletResponse response) throws IOException {
+		int res = productService.insertCategory(category);
+
+		messageService.categoryMessage(response, res);
+
+		mv.setViewName("redirect:/admin/category");
+		return mv;
+	}
 }

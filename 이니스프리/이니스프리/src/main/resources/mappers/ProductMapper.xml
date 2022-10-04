@@ -3,5 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.project.innisfree.dao.ProductDAO">
-	
+	 <insert id="insertCategory">
+      	insert into category(lc_code, mc_code, sc_code, lc_name, mc_name, sc_name, sc_count) 
+         values(#{lc_code}, #{mc_code}, #{sc_code}, #{lc_name}, #{mc_name}, #{sc_name}, #{sc_count})
+     </insert>
+	 <select id="selectCategoryList" resultType="kr.project.innisfree.vo.CategoryVO">
+      	select * from large_category
+			join midium_cartegory on lc_code = mc_lc_code
+		    join small_cartegory on sc_mc_code = mc_code
+     </select> 
 </mapper>
