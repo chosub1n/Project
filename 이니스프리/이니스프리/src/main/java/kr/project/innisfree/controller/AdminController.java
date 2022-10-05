@@ -114,7 +114,7 @@ public class AdminController {
 
 	@RequestMapping(value = "/admin/category/ajax/get", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<Object, Object> checkEmail(@RequestBody CategoryDTO cdto){
+	public Map<Object, Object> categoryList(@RequestBody CategoryDTO cdto){
 		HashMap<Object, Object> map = new HashMap<Object, Object>();
 		ArrayList<CategoryVO> list = productService.getCategoryList(cdto);
 		map.put("list", list);

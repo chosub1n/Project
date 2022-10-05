@@ -12,12 +12,8 @@
   <h2>카테고리 등록</h2>
   	<form role="form" method="post"> 
  		<label>1차 분류</label>
-		<select class="cate-1" name="lc_code"></select> 
- 		<label>2차 분류</label>
-		<select class="cate-2" name="mc_code">
-			<option>중분류</option>
-		</select>
-		<input class="input-group-append" name="name" style="margin-bottom: 4px;">
+		<select class="cate-1" name="lc_code"></select>
+	    <input class="input-group-append" name="mc_name" style="display:inline-block;">
  		<div class="input-group-append">
 	    	<button class="btn btn-outline-success">등록</button>
 	  	</div>		
@@ -59,17 +55,9 @@
 </div>
 <script type="text/javascript">
 $(function(){
-	getCategory('large_category', 0, '.cate-1');
-	$('.cate-1').change(function(){
-		let code = $(this).val();
-		if(code == 0){
-			$('.cate-2').html('<option value="0">중분류</option>');
-			return;
-		}
-		getCategory('midium_category',code, '.cate-2');
-	})
+	getCategory('large_category', 0, '.cate-1');	
 })
-
+//제품 등록할 때 활용
 function getCategory(tb_name, code, selector){
 	let obj = {
 			tb_name : tb_name,
@@ -87,11 +75,6 @@ function getCategory(tb_name, code, selector){
 			str += '<option value="0">중분류</option>'
 			for(ca of list){
 				str += '<option value="'+ca.mc_code+'">'+ca.mc_name+'</option>'
-			}
-		}else if(tb_name == 'small_category'){
-			str += '<option value="0">소분류</option>'
-			for(ca of list){
-				str += '<option value="'+ca.sc_code+'">'+ca.sc_name+'</option>'
 			}
 		}
 		$(selector).html(str);

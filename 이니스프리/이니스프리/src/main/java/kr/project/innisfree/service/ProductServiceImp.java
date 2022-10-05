@@ -18,16 +18,30 @@ public class ProductServiceImp implements ProductService{
 
 	@Override
 	public int insertCategory(CategoryVO category) {
-		if(category == null || category.getLc_name() == null || category.getLc_name().length() == 0 ||
-		    category.getMc_name() == null || category.getMc_name().length() == 0 ||
-		    category.getSc_name() == null || category.getSc_name().length() == 0)
+		if(category == null || category.getMc_name() == null || category.getMc_name().length() == 0)
 				return -2;
+		
+		String prefix = product.getPr_ca_name();//COM001
+		CategoryVO category = productDao.selectCategoryByCa_code(prefix.substring(0,3));
 		try {
-			productDao.insertCategory(category);
-		}catch(Exception e) {
-			return -1;
+			product.setPr_ca_name(category.getCa_name());
+			String dir = product.getPr_ca_name();//COM
+
+			String str = UploadFileUtils.uploadFile(productThumbnailUploadPath,File.separator + dir, prefix, file.getOriginalFilename(), file.getBytes());
+			product.setPr_thumb("/" +dir+ str);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
 		}
+		
+		
+		//선택된 중분류가 없고, 선택된 대분류가 있다면 => 현재 중분류를 등록
+		if(category.getLc_code() != 0)
+			productDao.insertMidiumCategory(category);
+		else
+			productDao.insertLargeCategory(category);
 		return 0;
+		
 	}
 
 	@Override
@@ -45,5 +59,6 @@ public class ProductServiceImp implements ProductService{
 			return productDao.selectMidiumCategory(cdto.getCode());
 		return productDao.selectSmallCategory(cdto.getCode());
 	}
+
 	
 }
