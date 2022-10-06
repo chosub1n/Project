@@ -6,6 +6,7 @@ import lombok.Data;
 public class CategoryVO {
 	private int lc_code;
     private String lc_name;
-    private int mc_code;
     private String mc_name;
+    private String mc_pr_code;
+    private int mc_count;
 }

@@ -4,27 +4,21 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.project.innisfree.dao.ProductDAO">
 	 <insert id="insertCategory">
-      	insert into category(lc_code, mc_code, lc_name, mc_name) 
-         values(#{lc_code}, #{mc_code}, #{lc_name}, #{mc_name})
+      	insert into category(lc_code, lc_name, mc_name, mc_pr_code) 
+         values(#{lc_code}, #{lc_name}, #{mc_name}, #{mc_pr_code})           
      </insert>
 	 <select id="selectCategoryList" resultType="kr.project.innisfree.vo.CategoryVO">
       	select * from large_category
-			join midium_category on lc_code = mc_lc_code
-		    join small_category on sc_mc_code = mc_code
+      		join medium_category on lc_code = mc_lc_code;
      </select> 
      <select id="selectLargeCategory" resultType="kr.project.innisfree.vo.CategoryVO">
      	select *  from large_category
      </select>
-     <select id="selectMidiumCategory" resultType="kr.project.innisfree.vo.CategoryVO">
-     	select *  from midium_category where mc_lc_code = #{code}
-     </select>
-     <select id="selectSmallCategory" resultType="kr.project.innisfree.vo.CategoryVO">
-     	select *  from small_category where sc_mc_code = #{code}
-     </select>
-     <insert id="insertMidiumCategory">
-     	insert into category(mc_code, mc_name) values(#{mc_code}, #{mc_name})
+     <insert id="insertLargeCategory"> 
+     	insert into large_category(lc_name) values(#{lc_name})
      </insert>
-     <insert id="insertLargeCategory">
-     	insert into category(lc_code, lc_name) values(#{lc_code}, #{lc_name})
+     <insert id="insertMediumCategory">
+     	insert into medium_category(mc_lc_code, mc_name, mc_pr_code) values(#{lc_code}, #{mc_name}, #{mc_pr_code})
+     	
      </insert>
 </mapper>

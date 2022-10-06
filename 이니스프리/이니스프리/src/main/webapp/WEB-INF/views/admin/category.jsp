@@ -10,48 +10,71 @@
 <body>
 <div class="container">
   <h2>카테고리 등록</h2>
-  	<form role="form" method="post"> 
- 		<label>1차 분류</label>
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#large">대분류 등록</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#medium">중분류 등록</a>
+    </li>
+  </ul>
+  <div class="tab-content">
+	 <div id="large" class="container tab-pane active"><br>
+		<form role="form" method="post"> 
+			<div class="input-group mb-3">
+		    	<input type="text" class="form-control" name="lc_name" placeholder="대분류 카테고리명">
+			    <div class="input-group-append">
+			    	<button class="btn btn-outline-success">등록</button>
+			  	</div>
+			 </div>
+			 <table class="table table-striped">
+			 	<thead>
+			      <tr>
+			        <th>카테고리명</th>
+			        <th>카테고리코드</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			    	<c:forEach items="${list}" var="lc">
+				      <tr>
+				        <td>${lc.lc_name}</td>
+				        <td>${lc.lc_code}</td>
+				      </tr>
+			      </c:forEach>
+			    </tbody>
+ 			 </table>
+  		</form>
+	</div>	    
+    <div id="medium" class="container tab-pane fade"><br>
+      <form role="form" method="post"> 
+ 		<label>대분류</label>
 		<select class="cate-1" name="lc_code"></select>
-	    <input class="input-group-append" name="mc_name" style="display:inline-block;">
- 		<div class="input-group-append">
+		<div class="input-group mb-3">
+	    	<input type="text" class="form-control" name="mc_name" placeholder="중분류 카테고리명">
+	    	<input type="text" class="form-control" name="mc_pr_code" placeholder="중분류 카테고리 코드">
+	    <div class="input-group-append">
 	    	<button class="btn btn-outline-success">등록</button>
-	  	</div>		
-	</form>
-<!--
-서비스
- 카테고리VO에 있는 lc_code == 0이면 name은 대분류에 등록
- lc_code !=0이고, mc_code == 0이면 name은 중분류에 등록
- lc_code !=0이고, mc_code != 0이면 name은 소분류에 등록
- -->
-  <%-- <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>카테고리명</th>
-        <th>카테고리코드</th>
-      </tr>
-    </thead>
-    <tbody>
-    	<c:forEach items="${list}" var="lc">
+	  	</div>
+	  </div>
+	  <table class="table table-striped">
+	    <thead>
 	      <tr>
-	        <td>${lc.lc_name}</td>
-	        <td>${lc.lc_code}</td>	 
+	        <th>카테고리명</th>
+	        <th>카테고리코드</th>
 	      </tr>
-      </c:forEach>
-      <c:forEach items="${list}" var="mc">
-	      <tr>
-	        <td>${mc.mc_name}</td>
-	        <td>${mc.mc_code}</td>
-	      </tr>
-      </c:forEach>
-      <c:forEach items="${list}" var="sc">
-	      <tr>
-	        <td>${sc.sc_name}</td>
-	        <td>${sc.sc_code}</td>
-	      </tr>
-      </c:forEach>
-    </tbody>
-  </table> --%>
+	    </thead>
+	    <tbody>
+	    	<c:forEach items="${list}" var="mc">
+		      <tr>
+		        <td>${mc.mc_name}</td>
+		        <td>${mc.mc_pr_code}</td>
+		      </tr>
+	      </c:forEach>
+	    </tbody>
+  	  </table>		
+	 </form>
+    </div>
+  </div>
 </div>
 <script type="text/javascript">
 $(function(){
@@ -71,10 +94,10 @@ function getCategory(tb_name, code, selector){
 			for(ca of list){
 				str += '<option value="'+ca.lc_code+'">'+ca.lc_name+'</option>'
 			}
-		}else if(tb_name == 'midium_category'){
+		}else if(tb_name == 'medium_category'){
 			str += '<option value="0">중분류</option>'
 			for(ca of list){
-				str += '<option value="'+ca.mc_code+'">'+ca.mc_name+'</option>'
+				str += '<option value="'+ca.mc_pr_code+'">'+ca.mc_name+'</option>'
 			}
 		}
 		$(selector).html(str);

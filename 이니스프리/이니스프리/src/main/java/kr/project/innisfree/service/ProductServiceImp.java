@@ -18,28 +18,17 @@ public class ProductServiceImp implements ProductService{
 
 	@Override
 	public int insertCategory(CategoryVO category) {
-		if(category == null || category.getMc_name() == null || category.getMc_name().length() == 0)
+		if(category == null )
 				return -2;
+		if((category.getMc_pr_code() == null || category.getMc_pr_code().length() != 4) 
+				&& (category.getLc_name()==null || category.getLc_name().length() == 0))
+			return 1;
 		
-		String prefix = product.getPr_ca_name();//COM001
-		CategoryVO category = productDao.selectCategoryByCa_code(prefix.substring(0,3));
-		try {
-			product.setPr_ca_name(category.getCa_name());
-			String dir = product.getPr_ca_name();//COM
-
-			String str = UploadFileUtils.uploadFile(productThumbnailUploadPath,File.separator + dir, prefix, file.getOriginalFilename(), file.getBytes());
-			product.setPr_thumb("/" +dir+ str);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return;
-		}
-		
-		
-		//선택된 중분류가 없고, 선택된 대분류가 있다면 => 현재 중분류를 등록
-		if(category.getLc_code() != 0)
-			productDao.insertMidiumCategory(category);
-		else
+		//선택된 대분류가 없다면 대분류를 등록
+		if(category.getLc_code() ==0)
 			productDao.insertLargeCategory(category);
+		else
+			productDao.insertMediumCategory(category);
 		return 0;
 		
 	}
@@ -55,9 +44,7 @@ public class ProductServiceImp implements ProductService{
 			return null;
 		if(cdto.getTb_name().equals("large_category"))
 			return productDao.selectLargeCategory();
-		if(cdto.getTb_name().equals("midium_category"))
-			return productDao.selectMidiumCategory(cdto.getCode());
-		return productDao.selectSmallCategory(cdto.getCode());
+		return productDao.selectMediumCategory(cdto.getCode());
 	}
 
 	

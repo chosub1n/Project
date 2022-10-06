@@ -12,12 +12,10 @@ public interface ProductDAO {
 
 	ArrayList<CategoryVO> selectLargeCategory();
 
-	ArrayList<CategoryVO> selectMidiumCategory(int code);
-
-	ArrayList<CategoryVO> selectSmallCategory(int code);
-
-	void insertMidiumCategory(CategoryVO category);
+	ArrayList<CategoryVO> selectMediumCategory(int code);
 
 	void insertLargeCategory(CategoryVO category);
+
+	void insertMediumCategory(CategoryVO category);
 	
 }
