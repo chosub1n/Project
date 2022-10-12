@@ -14,11 +14,26 @@
      <select id="selectLargeCategory" resultType="kr.project.innisfree.vo.CategoryVO">
      	select *  from large_category
      </select>
+     <select id="selectMediumCategory" resultType="kr.project.innisfree.vo.CategoryVO">
+		select * from medium_category where mc_lc_code = #{code}
+	</select>
      <insert id="insertLargeCategory"> 
      	insert into large_category(lc_name) values(#{lc_name})
      </insert>
      <insert id="insertMediumCategory">
      	insert into medium_category(mc_lc_code, mc_name, mc_pr_code) values(#{lc_code}, #{mc_name}, #{mc_pr_code})
-     	
      </insert>
+     
+     <insert id="insertProduct">
+		insert into product(pr_code, pr_thumb, pr_title, pr_title_detail, pr_content, pr_spec, pr_price, 
+			pr_deli, pr_point, pr_amount, pr_mc_name)
+		values(#{pr_code}, #{pr_thumb}, #{pr_title}, #{pr_title_datail}, #{pr_content}, #{pr_spec}, #{pr_price},
+			#{pr_deli}, #{pr_point}, #{pr_amount}, #{pr_mc_name})
+	</insert>	
+	<select id="selectCategoryByMc_pr_code" resultType="kr.project.innisfree.vo.CategoryVO">
+		select * from category where mc_pr_code = #{mc_pr_code}
+	</select>
+	<update id="updateCategory">
+		update category set mc_count = mc_count+1 where mc_name = #{mc_name}
+	</update>
 </mapper>

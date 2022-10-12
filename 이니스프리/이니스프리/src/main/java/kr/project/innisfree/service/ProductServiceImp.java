@@ -1,13 +1,17 @@
 package kr.project.innisfree.service;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.project.innisfree.dao.ProductDAO;
+import kr.project.innisfree.utils.UploadFileUtils;
 import kr.project.innisfree.vo.CategoryDTO;
 import kr.project.innisfree.vo.CategoryVO;
+import kr.project.innisfree.vo.ProductVO;
 
 @Service
 public class ProductServiceImp implements ProductService{
@@ -15,6 +19,7 @@ public class ProductServiceImp implements ProductService{
 	@Autowired
 	ProductDAO productDao;
 
+	String productThumbnailUploadPath = "D:\\git\\innisfreeproduct";
 
 	@Override
 	public int insertCategory(CategoryVO category) {
@@ -47,5 +52,25 @@ public class ProductServiceImp implements ProductService{
 		return productDao.selectMediumCategory(cdto.getCode());
 	}
 
-	
+	@Override
+	public void insertProduct(ProductVO product, MultipartFile file) {
+		if(product == null || file == null || file.getOriginalFilename().length() == 0)
+			return;
+
+		String prefix = product.getPr_code();//SKIN001
+		CategoryVO category = productDao.selectCategoryByMc_pr_code(prefix.substring(0,4));
+		try {
+			product.setPr_code(category.getMc_name());
+			String dir = product.getPr_code();//SKIN
+
+			String str = UploadFileUtils.uploadFile(productThumbnailUploadPath,File.separator + dir, prefix, file.getOriginalFilename(), file.getBytes());
+			product.setPr_thumb("/" +dir+ str);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
+		}
+		productDao.insertProduct(product);
+		productDao.updateCategory(category);
+	}
+
 }

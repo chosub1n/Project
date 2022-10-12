@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.project.innisfree.pagination.Criteria;
@@ -25,6 +26,7 @@ import kr.project.innisfree.vo.CategoryDTO;
 import kr.project.innisfree.vo.CategoryVO;
 import kr.project.innisfree.vo.MemberVO;
 import kr.project.innisfree.vo.NoticeVO;
+import kr.project.innisfree.vo.ProductVO;
 
 
 @Controller
@@ -111,7 +113,6 @@ public class AdminController {
 		mv.setViewName("redirect:/admin/category");
 		return mv;
 	}
-
 	@RequestMapping(value = "/admin/category/ajax/get", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<Object, Object> categoryList(@RequestBody CategoryDTO cdto){
@@ -120,4 +121,26 @@ public class AdminController {
 		map.put("list", list);
 		return map;
 	}
+	
+	@RequestMapping(value = "/admin/product/list", method = RequestMethod.GET)
+	public ModelAndView productListGet(ModelAndView mv) {
+		mv.setViewName("/admin/productList");
+		return mv;
+	}
+	@RequestMapping(value = "/admin/product/insert", method = RequestMethod.GET)
+	public ModelAndView productInsertGet(ModelAndView mv) {
+		ArrayList<CategoryVO> cartegoryList = productService.getCategoryList();
+		mv.addObject("list", cartegoryList);
+		mv.setViewName("/admin/productInsert");
+		return mv;
+	}
+	@RequestMapping(value = "/admin/product/insert", method = RequestMethod.POST)
+	public ModelAndView productInsertPost(ModelAndView mv, ProductVO product, MultipartFile file,
+			HttpServletResponse response) {
+		productService.insertProduct(product, file);
+		messageService.message(response, "제품을 등록했습니다.", "/innisfree/admin/product/list");
+		mv.setViewName("redirect:/admin/product/list");
+		return mv;
+	}
+	
 }
