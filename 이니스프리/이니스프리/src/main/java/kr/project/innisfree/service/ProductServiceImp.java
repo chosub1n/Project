@@ -57,11 +57,11 @@ public class ProductServiceImp implements ProductService{
 		if(product == null || file == null || file.getOriginalFilename().length() == 0)
 			return;
 
-		String prefix = product.getPr_code();//SKIN001
-		CategoryVO category = productDao.selectCategoryByMc_pr_code(prefix.substring(0,4));
+		String prefix = product.getPr_code().substring(0,4);//SKIN
+		CategoryVO category = productDao.selectMediumCategoryByMc_pr_code(prefix);
 		try {
-			product.setPr_code(category.getMc_name());
-			String dir = product.getPr_code();//SKIN
+			product.setPr_mc_name(category.getMc_name());
+			String dir = prefix;//SKIN
 
 			String str = UploadFileUtils.uploadFile(productThumbnailUploadPath,File.separator + dir, prefix, file.getOriginalFilename(), file.getBytes());
 			product.setPr_thumb("/" +dir+ str);
@@ -70,7 +70,7 @@ public class ProductServiceImp implements ProductService{
 			return;
 		}
 		productDao.insertProduct(product);
-		productDao.updateCategory(category);
+		productDao.updateMediumCategory(category);
 	}
 
 }

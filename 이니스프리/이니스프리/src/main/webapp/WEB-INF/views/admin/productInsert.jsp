@@ -60,27 +60,27 @@
 			<label> <제품 라인/고민 선택> </label>
 			<div class="form-check-inline">
       			<label class="form-check-label">
-        			<input type="checkbox" class="form-check-input" name="pr_line">그린티
+        			<input type="checkbox" class="form-check-input" name="pr_line" value="greentea">그린티
       			</label>
     		</div>
     		<div class="form-check-inline">
       			<label class="form-check-label">
-        			<input type="checkbox" class="form-check-input" name="pr_line">블랙티
+        			<input type="checkbox" class="form-check-input" name="pr_line" value="blacktea">블랙티
       			</label>
     		</div>
     		<div class="form-check-inline">
       			<label class="form-check-label">
-        			<input type="checkbox" class="form-check-input" name="pr_worry">건조함
+        			<input type="checkbox" class="form-check-input" name="pr_worry" value="dry">건조함
       			</label>
     		</div>
     		<div class="form-check-inline">
       			<label class="form-check-label">
-        			<input type="checkbox" class="form-check-input" name="pr_worry">주름
+        			<input type="checkbox" class="form-check-input" name="pr_worry" value="wrinkle">주름
       			</label>
     		</div>
     		<div class="form-check-inline">
       			<label class="form-check-label">
-        			<input type="checkbox" class="form-check-input" name="pr_worry">탄력
+        			<input type="checkbox" class="form-check-input" name="pr_worry" value="elasticity">탄력
       			</label>
     		</div>
 		</div>
@@ -120,9 +120,10 @@ $(function(){
 					str += '<option value="'+ca.lc_code+'">'+ca.lc_name+'</option>'
 				}
 			}else if(tb_name == 'medium_category'){
+				console.log(list)
 				str += '<option value="0">중분류</option>'
 				for(ca of list){
-					str += '<option value="'+ca.mc_lc_code+'">'+ca.mc_name+'</option>'
+					str += '<option value="'+ca.mc_pr_code + ((ca.mc_count+1+'').padStart(4,'0'))+'">'+ca.mc_name+'</option>'
 				}
 			}
 			$(selector).html(str);
@@ -156,7 +157,7 @@ $(function(){
     tabsize: 2,
     height: 400
   });
-	$('[name=pr_mc_name]').change(function(){
+	$('[name=mc_name]').change(function(){
 		$('[name=pr_code]').val($(this).val());
 	})
 	$('form').submit(function(){
@@ -179,9 +180,27 @@ $(function(){
 			return false;
 		}
 		let pr_price = $('[name=pr_price]').val();
-		if(pr_mc_name == '' || !/\d+/.test(pr_price)){
+		if(pr_price == '' || !/\d+/.test(pr_price)){
 			alert('올바른 가격을 입력하세요.');
 			$('[name=pr_price]').focus();
+			return false;
+		}
+		let pr_deli = $('[name=pr_deli]').val();
+		if(pr_deli == '' || !/\d+/.test(pr_deli)){
+			alert('배송비를 입력하세요.');
+			$('[name=pr_deli]').focus();
+			return false;
+		}
+		let pr_point = $('[name=pr_point]').val();
+		if(pr_point == ''){
+			alert('포인트를 입력하세요.');
+			$('[name=pr_point]').focus();
+			return false;
+		}
+		let pr_amount = $('[name=pr_amount]').val();
+		if(pr_amount == ''){
+			alert('제품 수량은 한 개 이상이어야 합니다.');
+			$('[name=pr_amount]').focus();
 			return false;
 		}
 		let pr_title = $('[name=pr_title]').val();
@@ -198,7 +217,7 @@ $(function(){
 		}
 		let pr_content = $('[name=pr_content]').val();
 		if(pr_content == ''){
-			alert('제품 내용을 입력하세요.');
+			alert('제품의 상세정보를 입력하세요.');
 			$('[name=pr_content]').focus();
 			return false;
 		}

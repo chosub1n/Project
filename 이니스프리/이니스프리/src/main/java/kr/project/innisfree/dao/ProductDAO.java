@@ -21,9 +21,9 @@ public interface ProductDAO {
 
 	void insertProduct(ProductVO product);
 
-	CategoryVO selectCategoryByMc_pr_code(String mc_pr_code);
+	CategoryVO selectMediumCategoryByMc_pr_code(String mc_pr_code);
 
-	void updateCategory(CategoryVO category);
+	void updateMediumCategory(CategoryVO category);
 
 	
 }

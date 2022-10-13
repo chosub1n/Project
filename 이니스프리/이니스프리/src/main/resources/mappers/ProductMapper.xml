@@ -25,15 +25,15 @@
      </insert>
      
      <insert id="insertProduct">
-		insert into product(pr_code, pr_thumb, pr_title, pr_title_detail, pr_content, pr_spec, pr_price, 
-			pr_deli, pr_point, pr_amount, pr_mc_name)
-		values(#{pr_code}, #{pr_thumb}, #{pr_title}, #{pr_title_datail}, #{pr_content}, #{pr_spec}, #{pr_price},
-			#{pr_deli}, #{pr_point}, #{pr_amount}, #{pr_mc_name})
+		insert into product(pr_code, pr_thumb, pr_title, pr_title_detail, pr_content, pr_price, 
+			pr_deli, pr_point, pr_amount, pr_mc_name, pr_line, pr_worry)
+		values(#{pr_code}, #{pr_thumb}, #{pr_title}, #{pr_title_detail}, #{pr_content}, #{pr_price},
+			#{pr_deli}, #{pr_point}, #{pr_amount}, #{pr_mc_name}, #{pr_line}, #{pr_worry}) 
 	</insert>	
-	<select id="selectCategoryByMc_pr_code" resultType="kr.project.innisfree.vo.CategoryVO">
-		select * from category where mc_pr_code = #{mc_pr_code}
+	<select id="selectMediumCategoryByMc_pr_code" resultType="kr.project.innisfree.vo.CategoryVO">
+		select * from medium_category where mc_pr_code = #{mc_pr_code}
 	</select>
-	<update id="updateCategory">
-		update category set mc_count = mc_count+1 where mc_name = #{mc_name}
+	<update id="updateMediumCategory">
+		update medium_category set mc_count = mc_count+1 where mc_name = #{mc_name}
 	</update>
 </mapper>
