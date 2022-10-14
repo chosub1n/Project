@@ -2,6 +2,7 @@ package kr.project.innisfree.dao;
 
 import java.util.ArrayList;
 
+import kr.project.innisfree.pagination.Criteria;
 import kr.project.innisfree.vo.CategoryVO;
 import kr.project.innisfree.vo.ProductVO;
 
@@ -25,5 +26,8 @@ public interface ProductDAO {
 
 	void updateMediumCategory(CategoryVO category);
 
+	ArrayList<ProductVO> selectProductList(Criteria cri);
+
+	int selectProductTotalCount(Criteria cri);
 	
 }

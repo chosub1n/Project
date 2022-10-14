@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.project.innisfree.dao.ProductDAO;
+import kr.project.innisfree.pagination.Criteria;
 import kr.project.innisfree.utils.UploadFileUtils;
 import kr.project.innisfree.vo.CategoryDTO;
 import kr.project.innisfree.vo.CategoryVO;
@@ -72,5 +73,20 @@ public class ProductServiceImp implements ProductService{
 		productDao.insertProduct(product);
 		productDao.updateMediumCategory(category);
 	}
+
+	@Override
+	public ArrayList<ProductVO> selectProductList(Criteria cri) {
+		if(cri == null)
+			cri = new Criteria();
+		return productDao.selectProductList(cri);
+	}
+
+	@Override
+	public int getProductTotalCount(Criteria cri) {
+		if(cri == null)
+			cri = new Criteria();
+		return productDao.selectProductTotalCount(cri);
+	}
+
 
 }

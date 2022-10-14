@@ -123,14 +123,22 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/admin/product/list", method = RequestMethod.GET)
-	public ModelAndView productListGet(ModelAndView mv) {
+	public ModelAndView productListGet(ModelAndView mv, Criteria cri) {
+		cri.setPerPageNum(2);
+		ArrayList<ProductVO> list = productService.selectProductList(cri);
+		int totalCount = productService.getProductTotalCount(cri);
+		PageMaker pm = new PageMaker(totalCount, 3, cri);
+		ArrayList<CategoryVO> categoryList = productService.getCategoryList();
+		mv.addObject("cl", categoryList);
+		mv.addObject("pm", pm);
+		mv.addObject("list", list);
 		mv.setViewName("/admin/productList");
 		return mv;
 	}
 	@RequestMapping(value = "/admin/product/insert", method = RequestMethod.GET)
 	public ModelAndView productInsertGet(ModelAndView mv) {
-		ArrayList<CategoryVO> cartegoryList = productService.getCategoryList();
-		mv.addObject("list", cartegoryList);
+		ArrayList<CategoryVO> categoryList = productService.getCategoryList();
+		mv.addObject("list", categoryList);
 		mv.setViewName("/admin/productInsert");
 		return mv;
 	}

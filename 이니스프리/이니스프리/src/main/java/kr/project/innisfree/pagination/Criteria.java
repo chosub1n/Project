@@ -7,13 +7,13 @@ public class Criteria {
 	private int page; 
 	private int perPageNum;
 	private String search;
-	private String pr_ca_name;
+	private String pr_mc_name;
 
 	public Criteria() {
 		page = 1;
 		perPageNum = 10;
 		search = "";
-		pr_ca_name = "";
+		pr_mc_name = "";
 	}
 
 	public int getPageStart() {
