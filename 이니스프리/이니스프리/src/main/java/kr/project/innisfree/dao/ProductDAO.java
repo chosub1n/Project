@@ -29,5 +29,7 @@ public interface ProductDAO {
 	ArrayList<ProductVO> selectProductList(Criteria cri);
 
 	int selectProductTotalCount(Criteria cri);
+
+	ProductVO selectProduct(String pr_code);
 	
 }

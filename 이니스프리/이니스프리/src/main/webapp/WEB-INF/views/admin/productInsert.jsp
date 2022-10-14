@@ -46,10 +46,10 @@
 			  <input type="text" class="form-control" readonly value="제품 번호" name="pr_code">
 			</div>
 			<div class="form-group">
-			  <input type="text" class="form-control" name="pr_price" placeholder="제품 가격 (정수)">원
+			  <input type="text" class="form-control" name="pr_price" placeholder="제품 가격 (정수)">
 			</div>
 			<div class="form-group">
-			  <input type="text" class="form-control" name="pr_deli" placeholder="배송비 (정수)">원(30,000원 이상 구매시 무료배송)
+			  <input type="text" class="form-control" name="pr_deli" placeholder="배송비 (정수)">
 			</div>
 			<div class="form-group">
 			  <input type="text" class="form-control" name="pr_point" placeholder="포인트">

@@ -48,4 +48,7 @@
 		where (pr_title like concat('%',#{search},'%') or pr_code like concat('%',#{search},'%'))
 			and pr_mc_name like concat('%',#{pr_mc_name},'%')
 	</select>
+	<select id="selectProduct" resultType="kr.project.innisfree.vo.ProductVO">
+		select * from product where pr_code = #{pr_code}	
+	</select>
 </mapper>

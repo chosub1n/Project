@@ -88,5 +88,10 @@ public class ProductServiceImp implements ProductService{
 		return productDao.selectProductTotalCount(cri);
 	}
 
-
+	@Override
+	public ProductVO selectProduct(String pr_code) {
+		if(pr_code == null || pr_code.length() != 8)
+			return null;
+		return productDao.selectProduct(pr_code);
+	}
 }
