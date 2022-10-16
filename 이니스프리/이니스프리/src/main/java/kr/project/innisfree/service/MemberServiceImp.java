@@ -195,13 +195,6 @@ public class MemberServiceImp implements MemberService {
 		if(member == null || member.getMe_email() == null || member.getMe_birth() == null)
 			return false;
 		
-		String email = memberDao.selectEmail(member);
-
-		if(email == null)
-			return false;
-
-		MemberVO user = memberDao.selectMember(email);
-		
 		String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 		String newPw = "";
 
@@ -211,13 +204,13 @@ public class MemberServiceImp implements MemberService {
 		}
 
 		String encPw = passwordEncoder.encode(newPw);
-		user.setMe_pw(encPw);
-		memberDao.updateMember(user);
+		member.setMe_pw(encPw);
+		memberDao.updateMember(member);
 
 		String title = "새 비밀번호가 발급됐습니다.";
 		String content = "새 비밀번호는 <br>" + newPw + "</br> 입니다.";
 
-		return sendEmail1(user.getMe_email(), title, content);
+		return sendEmail1(member.getMe_email(), title, content);
 	}
 	public boolean sendEmail1(String to, String title, String content) {
 		try {

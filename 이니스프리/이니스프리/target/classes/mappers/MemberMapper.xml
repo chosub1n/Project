@@ -24,9 +24,9 @@
 	</select>
 	<update id="updateMember">
   	update member set
-  		me_pw        = #{m.me_pw},
-  		me_birth     = #{m.me_birth},
-  		me_authority = #{m.me_authority}
-  	where me_email = #{m.me_email}
+  		me_pw        = #{me_pw},
+  		me_birth     = #{me_birth},
+  		me_authority = #{me_authority}
+  	where me_email = #{me_email}
   </update>
 </mapper>
