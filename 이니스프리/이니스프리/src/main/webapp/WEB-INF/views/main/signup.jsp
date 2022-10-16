@@ -43,7 +43,7 @@
 		</div>
 		<div class="form-group">
 		  <label for="me_phonenum">전화번호</label>
-		  <input type="text" class="form-control" id="me_phonenum" name="me_phonenum">
+		  	<input type="text" class="form-control"  id="me_phonenum"  name="me_phonenum" oninput="autoHyphen(this)" maxlength="13" autofocus>
 		</div>
 		<div class="form-group">
 			<div class="input-group mb-3">
@@ -69,6 +69,13 @@
       yearRange: "1900:2022"
 		});
 	})
+	
+	//전화번호 자동 하이프
+	const autoHyphen = (target) => {
+	 target.value = target.value
+	   .replace(/[^0-9]/g, '')
+	   .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+	}
 	
 	$(function(){
    	$("form").validate({
@@ -175,6 +182,7 @@ function execDaumPostcode() {
 		}						
 	}).open();
 }
+
 </script>
 </body>
 </html>
