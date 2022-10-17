@@ -20,7 +20,4 @@ public interface MemberDAO {
 
 	void updateMember(MemberVO user);
 
-	String selectEmail(MemberVO member);
-
-
 }

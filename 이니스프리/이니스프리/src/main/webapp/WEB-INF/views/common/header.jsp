@@ -13,11 +13,9 @@
 	position: relative; height: 40px; padding-right: 60px; width: 400px;
 	border: 2px solid #d9d9d9; border-radius: 21px; overflow: hidden; margin-top: 55px;
 }
+
 .fa-solid{
 	font-size: 23px; margin-left: 350px; margin-top: 7px;
-}
-.list{
-	margin-left: 100px; 
 }
 .member .dropdown-toggle::after{
 	display: none;
@@ -27,6 +25,20 @@
     line-height: 19px; border-radius: 50%; background: #167a68;
     color: #fff; font-size: 14px; text-align: center;
 }
+/*메인메뉴*/
+.item-menu{
+   width: 200px; line-height: 40px; font-size: 20px;
+}
+.link-menu, .link-sub-menu{
+   color: black;
+}
+.link-menu:hover, .link-sub-menu:hover{
+   color: black; text-decoration: none;
+}
+/*서브 메뉴*/
+.list-sub-menu{
+   display: none;
+}   	
 </style>
 </head>    
 <body>    
@@ -37,11 +49,11 @@
   	  	<input type="hidden" name="schText" id="schText" value="">
   	  	<i class="fa-solid fa-magnifying-glass"></i>
   	  </div>
-	  	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+	  	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" style="cursor:pointer">
 	    	<span class="navbar-toggler-icon"></span>
 	  	</button>
-  	<div class="collapse navbar-collapse list" id="collapsibleNavbar">
-    	<ul class="navbar-nav">
+  	<div class="collapse navbar-collapse" id="collapsibleNavbar">
+    	<ul class="navbar-nav"  style="position:absolute; right: 0">
     	   <c:if test="${user.me_authority != 10 }">
     		  <li class="nav-item">
 				 <a class="nav-link" href="<c:url value="/notice/list?no_type=NOTICE"></c:url>">고객센터</a>
@@ -84,9 +96,86 @@
 		    	<li class="nav-item">
 		        	<a class="nav-link" href="<c:url value="/admin"></c:url>">관리자</a>
 		      	</li>   
-  			</c:if>    
+  			</c:if>
     	</ul>
 	</div>
   </div>
 </nav>
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+  <div class="container category">
+     <ul class="list-menu category" style="display: flex;">
+         <li class="item-menu">
+            <a href="<c:url value="/product/list"></c:url>" class="link-menu">스킨케어</a>
+            <ul class="list-sub-menu">
+               <li class="item-sub-menu">
+                  <a href="#" class="link-sub-menu">스킨</a>
+               </li>
+               <li class="item-sub-menu">
+                  <a href="#" class="link-sub-menu">로션</a>
+               </li>
+               <li class="item-sub-menu">
+                  <a href="#" class="link-sub-menu">에센스</a>
+               </li>
+            </ul>
+         </li>
+         <li class="item-menu">
+            <a href="#" class="link-menu">클렌징</a>
+            <ul class="list-sub-menu">
+               <li class="item-sub-menu">
+                  <a href="#" class="link-sub-menu">클렌징폼</a>
+               </li>
+               <li class="item-sub-menu">
+                  <a href="#" class="link-sub-menu">클렌징오일/워터</a>
+               </li>
+            </ul>
+         </li>
+         <li class="item-menu">
+            <a href="#" class="link-menu">팩/마스크</a>
+            <ul class="list-sub-menu">
+               <li class="item-sub-menu">
+                  <a href="#" class="link-sub-menu">시트 마스크</a>
+               </li>
+               <li class="item-sub-menu">
+                  <a href="#" class="link-sub-menu">워시 오프 팩</a>
+               </li>
+               <li class="item-sub-menu">
+                  <a href="#" class="link-sub-menu">슬리핑 팩</a>
+               </li>
+            </ul>
+         </li>
+      </ul>
+  </div>
+</nav> 
+<script type="text/javascript">
+$('.item-menu').hover(function(){
+	$(this).children('.list-sub-menu').stop().slideToggle(500)
+})
+$(function(){
+	ajaxPost(false, null, '/category/list', function(data){
+		if('${user.me_authority}' == 10){
+			return;
+		}
+		let str = ''; 
+		for(c of data.list){
+			str += '<li class="item-menu">';
+      str += 	'<a class="nav-link" href="<%=request.getContextPath()%>/product/list?mc_name='+mc.mc_name+'">'+mc.mc_name+'</a>';
+     	str += '</li>' 
+		}
+		$('.category').prepend(str);
+	})
+})
+function ajaxPost(async, dataObj, url, success){
+	$.ajax({
+	  async:async,
+	  type:'POST',
+	  data:JSON.stringify(dataObj),
+	  url:"<%=request.getContextPath()%>"+url,
+	  dataType:"json",
+	  contentType:"application/json; charset=UTF-8",
+	  success : function(data){
+		  success(data);
+	  }
+  });
+}
+</script>
 </body>
