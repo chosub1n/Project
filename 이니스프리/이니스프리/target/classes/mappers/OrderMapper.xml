@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.project.innisfree.dao.OrderDAO">
+	<insert id="insertOrder">
+      	insert into category(or_code, or_pr_code, or_me_email, or_name, or_date, or_post_code, or_addr,
+      		or_addr_datail, or_request, or_amount, or_price, or_total_price, or_state, or_deli, or_point,
+      		or_coupon, or_hc_num, or_refund_date) 
+         values(#{or_code}, #{or_pr_code}, #{or_me_email}, #{or_name}, #{or_date}, #{or_post_code}, #{or_addr},
+         	#{or_addr_datail}, #{or_request}, #{or_amount}, #{or_price}, #{or_total_price}, #{or_state}, #{or_deli}, #{or_name},
+         	#{or_point}, #{or_coupon}, #{or_hc_num}, #{or_refund_date})           
+     </insert>    
+</mapper>

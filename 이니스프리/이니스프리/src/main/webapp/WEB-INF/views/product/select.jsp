@@ -23,29 +23,36 @@
 <div class="container">
 	<h2>제품 상세</h2>
 	<div class="clearfix">
-		<div class="float-left" style="width:auto; height: auto">
-			<img id="preview" width="200" height="200" src="<c:url value="${p.pr_thumb_url}"></c:url>">
-		</div>
-		<div class="float-right" style="width:calc(100% - 200px - 10px)">
-			<div class="form-group" style="display:inline-block;">
-			  <input type="text" class="form-control" value="제품종류 : ${p.pr_mc_name}" readonly>
+		<form  method="get" action="<c:url value="/product/order/${p.pr_code}"></c:url>">
+			<div class="float-left" style="width:auto; height: auto">
+				<img id="preview" width="250" height="250" src="<c:url value="${p.pr_thumb_url}"></c:url>">
 			</div>
-			<div class="form-group" style="display:inline-block;">
-			  <input type="text" class="form-control" value="제품번호 : ${p.pr_code}" readonly>
+			<div class="float-right" style="width:calc(100% - 250px - 10px)">
+				<div class="form-group" style="display:inline-block;">
+			  		<input type="text" class="form-control" value="제품종류 : ${p.pr_mc_name}" readonly>
+				</div>
+				<div class="form-group" style="display:inline-block;">
+			  		<input type="text" class="form-control" value="제품번호 : ${p.pr_code}" readonly>
+				</div>
+				<div class="form-group" style="display:inline-block;">
+				  <input type="text" class="form-control" value="제품가격 : ${p.pr_price}원" readonly>
+				</div>
+				<div class="form-group">
+				  <input type="text" class="form-control" value="배송비 : ${p.pr_deli}원 (40,000원이상 구매시 무료배송)" readonly>
+				</div>
+				<div class="form-group">
+				  <input type="text" class="form-control" value="포인트 : ${p.pr_point}" readonly>
+				</div>
+				<div class="form-group">
+				  <input type="text" class="form-control" value="제품라인과 고민 : ${p.pr_line}, ${p.pr_worry}" readonly>
+				</div>
+				<div class="form-group count" style="display:inline-block;">
+					<label>구매수량</label>
+					<input type="number" min="1" max="10" value="${p.pr_count}" name="pr_count">&nbsp;개
+					<button class="btn btn-light btn-buy">구매하기</button> 
+				</div>
 			</div>
-			<div class="form-group" style="display:inline-block;">
-			  <input type="text" class="form-control" value="제품가격 : ${p.pr_price}원" readonly>
-			</div>
-			<div class="form-group">
-			  <input type="text" class="form-control" value="배송비 : ${p.pr_deli}원 (40,000원이상 구매시 무료배송)" readonly>
-			</div>
-			<div class="form-group">
-			  <input type="text" class="form-control" value="포인트 : ${p.pr_point}" readonly>
-			</div>
-			<div class="form-group">
-			  <input type="text" class="form-control" value="제품라인과 고민 : ${p.pr_line}, ${p.pr_worry}" readonly>
-			</div>
-		</div>
+		</form>
 	</div>
 	<div class="form-group">
 	  <input type="text" class="form-control" value="${p.pr_title}" readonly>
@@ -57,5 +64,25 @@
 	  <div class="form-control" style="height:auto">${p.pr_content}</div>
 	</div>
 </div>
+<script type="text/javascript">
+$(function(){
+	$('.btn-buy').click(function(e){
+		if('${user.me_email}' == ''){
+			if(confirm('로그인 한 회원만 구매가 가능합니다. 로그인 하시겠습니까?')){
+				e.preventDefault();
+				location.href = '<%=request.getContextPath()%>/login'
+			}
+		}
+	})
+	//구매수량 제한 
+	$('.count input').change(function(){
+		if($(this).val() > 10){
+			alert('이 제품의 1회 최대 구매 가능한 수량은 10개 입니다.');
+			$(this).val(10)
+			return;
+		}
+	});
+})
+</script>
 </body>
 </html>

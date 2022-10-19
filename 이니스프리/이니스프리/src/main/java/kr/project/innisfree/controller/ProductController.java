@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.project.innisfree.pagination.Criteria;
 import kr.project.innisfree.pagination.PageMaker;
 import kr.project.innisfree.service.ProductService;
+import kr.project.innisfree.vo.MemberVO;
 import kr.project.innisfree.vo.CategoryVO;
 import kr.project.innisfree.vo.ProductVO;
 
@@ -23,7 +27,7 @@ public class ProductController {
 	
 	@Autowired
 	ProductService productService;
-
+	
 	@RequestMapping(value = "/product/select", method = RequestMethod.GET)
 	public ModelAndView productSelect(ModelAndView mv, String pr_code) {
 		ProductVO product = productService.selectProduct(pr_code);
@@ -56,6 +60,23 @@ public class ProductController {
 		map.put("pm", pm);
 		map.put("list", list);
 		return map;
+	}
+	
+	//주문하기(장바구니 안 거치고 바로결제)
+	@RequestMapping(value = "/product/order/{pr_code}", method = RequestMethod.GET)
+	public ModelAndView productOrderGet(ModelAndView mv, @PathVariable("pr_code")String pr_code,
+			Integer pr_count, HttpSession session) {
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		//제품 정보
+		ProductVO product = productService.selectProduct(pr_code);
+		
+		mv.addObject("product",product);
+		mv.addObject("pr_count", pr_count);
+		mv.addObject("title", "결제 | Innsfree");
+		mv.setViewName("/product/order");
+		return mv;
 	}
 
 }

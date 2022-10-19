@@ -26,9 +26,9 @@
      
      <insert id="insertProduct">
 		insert into product(pr_code, pr_thumb, pr_title, pr_title_detail, pr_content, pr_price, 
-			pr_deli, pr_point, pr_amount, pr_mc_name, pr_line, pr_worry)
+			pr_deli, pr_point, pr_amount, pr_mc_name, pr_line, pr_worry, pr_count)
 		values(#{pr_code}, #{pr_thumb}, #{pr_title}, #{pr_title_detail}, #{pr_content}, #{pr_price},
-			#{pr_deli}, #{pr_point}, #{pr_amount}, #{pr_mc_name}, #{pr_line}, #{pr_worry}) 
+			#{pr_deli}, #{pr_point}, #{pr_amount}, #{pr_mc_name}, #{pr_line}, #{pr_worry}, #{pr_count}) 
 	</insert>	
 	<select id="selectMediumCategoryByMc_pr_code" resultType="kr.project.innisfree.vo.CategoryVO">
 		select * from medium_category where mc_pr_code = #{mc_pr_code}

@@ -24,4 +24,5 @@ public interface ProductService {
 	int getProductTotalCount(Criteria cri);
 
 	ProductVO selectProduct(String pr_code);
+
 }
