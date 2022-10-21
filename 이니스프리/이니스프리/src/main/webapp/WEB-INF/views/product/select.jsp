@@ -48,7 +48,7 @@
 				</div>
 				<div class="form-group count" style="display:inline-block;">
 					<label>구매수량</label>
-					<input type="number" min="1" max="10" value="${p.pr_count}" name="pr_count">&nbsp;개
+					<input type="number" min="1" max="10" value="1" name="pr_count">&nbsp;개
 					<button class="btn btn-light btn-buy">구매하기</button> 
 				</div>
 			</div>
@@ -73,7 +73,7 @@ $(function(){
 				location.href = '<%=request.getContextPath()%>/login'
 			}
 		}
-	})
+		
 	//구매수량 제한 
 	$('.count input').change(function(){
 		if($(this).val() > 10){

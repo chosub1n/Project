@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="container">
-	<h2>게시글 상세</h2>
+	<h2>공지사항 상세</h2>
 	<div class="form-group">
 	  <input type="text" class="form-control" value="${no.no_title}">
 	</div>

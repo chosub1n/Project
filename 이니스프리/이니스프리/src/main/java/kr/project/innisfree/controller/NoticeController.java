@@ -34,9 +34,9 @@ public class NoticeController {
 		boolean res = noticeService.deleteNotice(no_num, user);
 		String redirectUrl = noticeService.getDeleteRedirectURL(no_type);
 		if(res)
-			messageService.message(response, "게시글이 삭제되었습니다.", redirectUrl);
+			messageService.message(response, "공지사항이 삭제되었습니다.", redirectUrl);
 		else
-			messageService.message(response, "게시글 삭제에 실패했습니다.", redirectUrl);
+			messageService.message(response, "공지사항 삭제에 실패했습니다.", redirectUrl);
 		return mv;
 	}
 	

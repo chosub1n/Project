@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,8 +20,9 @@
 </head>
 <body>
 <div class="container">
-	<form action="<%=request.getContextPath()%>/product/order/{pr_code}" method="post">
-		<h3>주문/배송정보</h3>
+	<form action="<%=request.getContextPath()%>/product/orderList" method="post">
+		<h1 style="text-align: center;">결제하기</h1>
+		<h4 style="font-weight: bold;">주문/배송정보</h4>
 		<div class="form-group">
 			<label for="me_name">*주문자</label>
 			<input type="text" class="form-control" id="me_name" name="me_name" value="${user.me_name}">
@@ -62,8 +64,8 @@
 				</select>
 			<input type="text" id="category" class="categoryValue" name="categoryValue" maxlength=45 placeholder="배송 요청사항을 입력해주세요.(최대 45자까지 입력가능)">
 		</div>	
-		<h3>주문 상품 정보</h3>
-		<table class="table table-hover">
+		<h4 style="font-weight: bold;">주문 상품 정보</h4>
+		<table class="table">
     		<thead>
       			<tr>
         			<th>제품 이미지</th>
@@ -71,6 +73,7 @@
         			<th>구매 수량</th>
         			<th>가격</th>
         			<th>배송비</th>
+        			<th>최종 결제 금액</th>
       			</tr>
     		</thead>
     		<tbody>
@@ -78,16 +81,33 @@
 	        		<td>
 	          			<img alt="제품이미지" src="<c:url value="${product.pr_thumb_url}"></c:url>" width="150" height="150">
 	        		</td>
-		    		<td>
-		      			<a href="<c:url value="/product/select?pr_code=${product.pr_code}"></c:url>">${product.pr_title}</a>
-		    		</td>
-		    		<td>${product.pr_count}개</td>
-		    		<td>${product.pr_price}원</td>
-		    		<td>${product.pr_deli}원</td>
+		    		<td>${product.pr_title}</td>
+		    		<td>${pr_count}&nbsp;개</td>
+		    		<td class="pr_price">
+                    	<fmt:formatNumber pattern="###,###,###" value="${pr_count * product.pr_price}" />원
+                    </td>
+                    <td class="pr_deli">
+                    	<fmt:formatNumber pattern="###,###,###" value="${product.pr_deli}" />원     	
+                    </td>
+                    <td class="totalprice">
+                    	<fmt:formatNumber pattern="###,###,###" value="${(pr_count * product.pr_price) + product.pr_deli}" />원
+                    </td>		    		
 	      		</tr>
   	  		</tbody>
   		</table>
-		<h3>결제수단 선택</h3>
+		<h4 style="font-weight: bold;">결제수단 선택</h4>
+		<div class="form-group">
+		  <div class="form-check-inline">
+		  	 <label class="form-check-label">
+		    	<input type="radio" class="form-check-input" name="me_gender" value="P">신용카드 결제
+		  	 </label>
+		   </div>
+		   <div class="form-check-inline">
+		  	 <label class="form-check-label">
+		    	<input type="radio" class="form-check-input" name="me_gender" value="N">무통장 입금
+		  	 </label>
+			</div>
+		</div>
 		<button class="btn btn-outline-success col-12 mb-5">결제하기</button>
 	</form>
 </div>
@@ -111,13 +131,13 @@
        },
        //규칙체크 실패시 출력될 메시지
        messages : {
-    	 me_name: {required : "필수항목입니다."},
+    	 me_name: {required : "주문자 성명을 입력해주세요."},
+         me_phonenum: {required : "주문자 연락처를 입력해주세요."},
          me_email: {
-       	  required : "필수항목입니다.",
+       	  required : "주문자 이메일을 입력해주세요.",
        	  email : "이메일 형식에 맞지 않습니다."
-         },
-         me_phonenum: {required : "필수항목입니다."}
-       	 }   
+         }
+       	 },   
    	  });
 	})
 	$.validator.addMethod(
